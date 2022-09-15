@@ -7,7 +7,6 @@ public class position_script: MonoBehaviour
 {
     public List<Transform> parent_List;
     public List<Transform> child_List;
-    public List<Transform> sibling_List;
 
     bool trigger;
     public int n;
@@ -15,13 +14,12 @@ public class position_script: MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(transform.parent.ToString());
-        if (FindParents() != null) n = FindParents().Count();
+        if (FindParents()!=null) n = FindParents().Count();
         else n = 0;
         x = transform.GetSiblingIndex();
         for (int i = 0; i <x; i++)
         {
-            if (transform.parent.GetChild(i).tag != "display" && transform.parent) x--;
+            if (FindParents() != null&&transform.parent.GetChild(i).tag != "display") x--;
         }
     }
 
@@ -48,7 +46,7 @@ public class position_script: MonoBehaviour
     public List<Transform> FindParents()
     {
         parent_List.Clear();
-        if (this.transform.parent != null)
+        if (this.transform.parent)
         {
             parent_List.Add(this.transform.parent);
             trigger = true;
