@@ -12,24 +12,29 @@ public class zoom_script : MonoBehaviour
     public List<Vector3> positions;
 
     public AnimationCurve animcurvx;
-    private AnimationCurve animcurvy;
-    private AnimationCurve animcurvz;
+    public AnimationCurve animcurvy;
+    public AnimationCurve animcurvz;
 
     public Keyframe[] ksx;
-    private Keyframe[] ksy;
-    private Keyframe[] ksz;
+    public Keyframe[] ksy;
+    public Keyframe[] ksz;
 
     void Start()
     {
         open = false;
-        anim = GetComponent<Animator>();
         close = transform.GetChild(1);
         close.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        anim = GetComponent<Animator>();
+
+        ksx = new Keyframe[2];
+        ksy = new Keyframe[2];
+        ksz = new Keyframe[2];
 
     }
 
     void Update()
     {
+
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (open==false&&hit.collider && Input.GetMouseButtonDown(0)&&hit.collider.gameObject==this.gameObject)
         {
@@ -45,7 +50,7 @@ public class zoom_script : MonoBehaviour
             open = false;
         }
 
-    }
+    }   
 
     public void userToggle()
     {
@@ -53,9 +58,6 @@ public class zoom_script : MonoBehaviour
         positions.Add(transform.localPosition);
         positions.Add(new Vector3(2.0165f, -0.4062f, 0.13107f));
 
-        ksx = new Keyframe[2];
-        ksy = new Keyframe[2];
-        ksz = new Keyframe[2];
         for (int i = 0; i < positions.Count(); i++)
         {
             ksx[i] = new Keyframe(i, positions[i].x);
@@ -63,9 +65,12 @@ public class zoom_script : MonoBehaviour
             ksz[i] = new Keyframe(i, positions[i].z);
         }
 
-        animcurvx = new AnimationCurve(ksx);
-        animcurvy = new AnimationCurve(ksy);
-        animcurvz = new AnimationCurve(ksz);
+        for (int i = 0; i < 2; i++)
+        {
+            animcurvx.AddKey(ksx[i]);
+            animcurvy.AddKey(ksy[i]);
+            animcurvz.AddKey(ksz[i]);
+        }
 
         animclip.SetCurve("", typeof(Transform), "m_LocalPosition.x", animcurvx);
         animclip.SetCurve("", typeof(Transform), "m_LocalPosition.y", animcurvy);
