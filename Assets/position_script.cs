@@ -7,6 +7,9 @@ public class position_script: MonoBehaviour
 {
     public List<Transform> parent_List;
     public List<Transform> child_List;
+    public List<Transform> sibling_List;
+
+    public zoom_script zomScript;
 
     bool trigger;
     public int n;
@@ -14,6 +17,7 @@ public class position_script: MonoBehaviour
 
     private void Start()
     {
+        zomScript = GetComponent<zoom_script>();
         if (FindParents()!=null) n = FindParents().Count();
         else n = 0;
         x = transform.GetSiblingIndex();
@@ -21,6 +25,9 @@ public class position_script: MonoBehaviour
         {
             if (FindParents() != null&&transform.parent.GetChild(i).tag != "display") x--;
         }
+
+        FindSiblings();
+        FindChildren();
     }
 
     public List<Transform> FindChildren()
@@ -57,6 +64,18 @@ public class position_script: MonoBehaviour
             }
 
             return parent_List;
+        }
+        else return null;
+    }
+
+    public List<Transform> FindSiblings()
+    {
+        sibling_List.Clear();
+        if (FindParents() != null)
+        {
+            for (int i = 0; i < transform.parent.childCount; i++) if (transform.parent.GetChild(i).tag == "display") sibling_List.Add(transform.parent.GetChild(i));
+            for (int j = 0; j < sibling_List.Count(); j++) if (sibling_List[j] == this.transform) sibling_List.Remove(this.transform);
+            return sibling_List;
         }
         else return null;
     }
