@@ -35,15 +35,9 @@ public class position_script: MonoBehaviour
         child_List.Clear();
         int i = 0;
         trigger = true;
-        if (this.transform.GetChild(i).tag == "display" && this.transform.GetChild(i) != null)
+        if (transform.GetChild(i).tag == "display" && transform.GetChild(i))
         {
-            while (trigger == true)
-            {
-                if (this.transform.childCount==child_List.Count()) trigger = false;
-                else if (this.transform.GetChild(i).tag == "display") child_List.Add(this.transform.GetChild(i));
-                i++;
-
-            }
+            for (i=0;i<transform.childCount;i++) if (transform.GetChild(i) && transform.GetChild(i).tag == "display") child_List.Add(transform.GetChild(i));
 
             return child_List;
         }
@@ -53,14 +47,14 @@ public class position_script: MonoBehaviour
     public List<Transform> FindParents()
     {
         parent_List.Clear();
-        if (this.transform.parent)
+        if (transform.parent)
         {
-            parent_List.Add(this.transform.parent);
+            parent_List.Add(transform.parent);
             trigger = true;
             while (trigger == true)
             {
                 if (parent_List.Last().parent == null) trigger = false;
-                else if (this.transform.parent.tag == "display") parent_List.Add(parent_List.Last().parent);
+                else if (transform.parent.tag == "display") parent_List.Add(parent_List.Last().parent);
             }
 
             return parent_List;
@@ -74,7 +68,7 @@ public class position_script: MonoBehaviour
         if (FindParents() != null)
         {
             for (int i = 0; i < transform.parent.childCount; i++) if (transform.parent.GetChild(i).tag == "display") sibling_List.Add(transform.parent.GetChild(i));
-            for (int j = 0; j < sibling_List.Count(); j++) if (sibling_List[j] == this.transform) sibling_List.Remove(this.transform);
+            for (int j = 0; j < sibling_List.Count(); j++) if (sibling_List[j] == transform) sibling_List.Remove(transform);
             return sibling_List;
         }
         else return null;
