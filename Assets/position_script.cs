@@ -19,7 +19,7 @@ public class position_script: MonoBehaviour
     {
         zomScript = GetComponent<zoom_script>();
         if (FindParents()!=null) n = FindParents().Count();
-        else n = 0;
+        //else n = 0;
         x = transform.GetSiblingIndex();
         for (int i = 0; i <x; i++)
         {
