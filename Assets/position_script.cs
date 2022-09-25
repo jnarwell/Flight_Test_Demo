@@ -12,6 +12,7 @@ public class position_script: MonoBehaviour
     public zoom_script zomScript;
 
     bool trigger;
+    public bool open;
     public int n;
     public int x;
 
@@ -28,6 +29,11 @@ public class position_script: MonoBehaviour
 
         FindSiblings();
         FindChildren();
+    }
+
+    private void Update()
+    {
+        if (zomScript != null) open = zomScript.open;
     }
 
     public List<Transform> FindChildren()

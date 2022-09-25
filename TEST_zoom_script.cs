@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,12 +6,8 @@ using UnityEngine;
 public class zoom_script : MonoBehaviour
 {
     private Animator anim;
-    private SpriteRenderer closeRend;
-    private BoxCollider2D closeCold;
+    private SpriteRenderer close;
     public bool open;
-    public bool child_open;
-    public bool parent_open;
-    public bool sibling_open;
     public int orderShift;
 
     public AnimationClip anim_position_open;
@@ -57,10 +53,8 @@ public class zoom_script : MonoBehaviour
     void Start()
     {
         open = false;
-        for (int j = 0; j < transform.childCount; j++) if (transform.GetChild(j).tag == "close") closeRend = transform.GetChild(j).GetComponent<SpriteRenderer>();
-        for (int j = 0; j < transform.childCount; j++) if (transform.GetChild(j).tag == "close") closeCold = transform.GetChild(j).GetComponent<BoxCollider2D>();
-        closeRend.enabled = false;
-        closeCold.enabled = false;
+        for (int j = 0; j < transform.childCount; j++) if (transform.GetChild(j).tag == "close") close = transform.GetChild(j).GetComponent<SpriteRenderer>();
+        close.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         anim = GetComponent<Animator>();
         spriteRend = GetComponent<SpriteRenderer>();
         boxColl2D = GetComponent<BoxCollider2D>();
@@ -90,14 +84,16 @@ public class zoom_script : MonoBehaviour
         {
             orderShift++;
             userToggle();
+            close.enabled = true;
             open = true;
 
             boxColl2D.enabled = false;
         }
-        if (open == true && hit.collider && Input.GetMouseButtonDown(0) && hit.collider.gameObject.GetComponent<SpriteRenderer>() == closeRend)
+        if (open == true && hit.collider && Input.GetMouseButtonDown(0) && hit.collider.gameObject.GetComponent<SpriteRenderer>() == close)
         {
             orderShift--;
             userToggle();
+            close.enabled = false;
             open = false;
             boxColl2D.enabled = true;
             //transform.parent.GetComponent<zoom_script>().spriteRend.enabled = true;
@@ -260,87 +256,54 @@ public class zoom_script : MonoBehaviour
 
     public void CheckFamily()
     {
-        //set defaults
-        child_open = false;
-        parent_open = false;
-        sibling_open = false;
+        if (open) boxColl2D.enabled = false;
+        else if (transform.parent.GetComponent<zoom_script>() && transform.parent.GetComponent<zoom_script>().open == false) boxColl2D.enabled = false;
+        else if (transform.parent.GetComponent<zoom_script>() && transform.parent.GetComponent<zoom_script>().open) boxColl2D.enabled = true;
 
-
-
-        //child check
-        if (posScript.FindChildren() != null)
+        if (transform.parent.GetComponent<zoom_script>() && transform.parent.GetComponent<zoom_script>().spriteRend.enabled == false) spriteRend.enabled = false;
+        else if (transform.parent.GetComponent<zoom_script>() && transform.parent.GetComponent<zoom_script>().spriteRend.enabled == true) spriteRend.enabled = true;
+        //Debug.Log(posScript.sibling_List.Count());
+        for (int i = 0; i < posScript.sibling_List.Count(); i++) //sibling
         {
-            for (int i = 0; i < posScript.FindChildren().Count(); i++)
+            if (posScript.sibling_List[i].GetComponent<zoom_script>().open == true)
             {
-                if (posScript.FindChildren()[i].GetComponent<position_script>().open) child_open = true;
+                //Debug.Log(gameObject+"colin");
+                spriteRend.enabled = false;
+                if (boxColl2D.enabled == true) boxColl2D.enabled = false;
+                for (int j = 0; j < posScript.child_List.Count(); j++)
+                {
+                    posScript.child_List[j].GetComponent<zoom_script>().spriteRend.enabled = false;
+                    posScript.child_List[j].GetComponent<zoom_script>().boxColl2D.enabled = false;
+                }
+            }
+            else if (open != true && posScript.sibling_List[i].GetComponent<zoom_script>().open == false)
+            {
+                //Debug.Log(gameObject + "jamie");
+                //spriteRend.enabled = true;
+                boxColl2D.enabled = true;
+                for (int j = 0; j < posScript.child_List.Count(); j++)
+                {
+                    //if (posScript.child_List[j].GetComponent<zoom_script>().open == false) posScript.child_List[j].GetComponent<zoom_script>().spriteRend.enabled = true;
+                    //if (posScript.child_List[j].GetComponent<zoom_script>().open == false) posScript.child_List[j].GetComponent<zoom_script>().boxColl2D.enabled = true;
+                    //if (posScript.child_List[j].GetComponent<zoom_script>().open == false) posScript.child_List[j].GetComponent<zoom_script>().spriteRend.sortingOrder = 1 + posScript.child_List[j].GetComponent<position_script>().n;
+                }
             }
         }
-
-        //parent check
-        for (int i = 0; i < posScript.FindParents().Count(); i++)
+        for (int i = 0; i < posScript.child_List.Count(); i++) //child
         {
-            if (posScript.FindParents()[i].GetComponent<position_script>().open) parent_open = true;
+            if (posScript.child_List[i].GetComponent<zoom_script>().open == true)
+            {
+                //spriteRend.enabled = false;
+                //boxColl2D.enabled = false;
+                close.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                close.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            }
+            else if (open)
+            {
+                Debug.Log(gameObject + "colin");
+                close.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+                close.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            }
         }
-
-        //sibling check
-        for (int i = 0; i < posScript.FindSiblings().Count(); i++)
-        {
-            if (posScript.FindSiblings()[i].GetComponent<position_script>().open) sibling_open = true;
-        }
-
-        //when nothing open
-        if (posScript.n == 1)
-        {
-            spriteRend.enabled = true;
-            boxColl2D.enabled = true;
-            closeRend.enabled = false;
-            closeCold.enabled = false;
-        }
-        else
-        {
-            spriteRend.enabled = true;
-            boxColl2D.enabled = false;
-            closeRend.enabled = false;
-            closeCold.enabled = false;
-        }
-
-        //when child open
-        if (child_open)
-        {
-            spriteRend.enabled = true;
-            boxColl2D.enabled = false;
-            closeRend.enabled = false;
-            closeCold.enabled = false;
-        }
-
-        //when parent open
-        if (parent_open)
-        {
-            spriteRend.enabled = true;
-            boxColl2D.enabled = true;
-            closeRend.enabled = false;
-            closeCold.enabled = false;
-        }
-
-        //when sibling open
-        if (sibling_open)
-        {
-            spriteRend.enabled = false;
-            boxColl2D.enabled = false;
-            closeRend.enabled = false;
-            closeCold.enabled = false;
-        }
-
-        //when open
-        if (open)
-        {
-            spriteRend.enabled = true;
-            boxColl2D.enabled = false;
-            if (child_open == false) closeRend.enabled = true;
-            if (child_open == false) closeCold.enabled = true;
-        }
-
-        //when parent off
-        if (transform.parent.GetComponent<zoom_script>()&&transform.parent.GetComponent<zoom_script>().spriteRend.enabled == false) spriteRend.enabled = false;
     }
 }
