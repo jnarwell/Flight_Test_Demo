@@ -14,6 +14,8 @@ public class zoom_script : MonoBehaviour
     public bool sibling_open;
     public int orderShift;
 
+    public AudioSource sound;
+
     public AnimationClip anim_position_open;
     public AnimationClip anim_position_close;
 
@@ -92,14 +94,15 @@ public class zoom_script : MonoBehaviour
             userToggle();
             open = true;
 
-            boxColl2D.enabled = false;
+            if (sound != null) sound.Play();
+            //boxColl2D.enabled = false;
         }
         if (open == true && hit.collider && Input.GetMouseButtonDown(0) && hit.collider.gameObject.GetComponent<SpriteRenderer>() == closeRend)
         {
             orderShift--;
             userToggle();
             open = false;
-            boxColl2D.enabled = true;
+            //boxColl2D.enabled = true;
             //transform.parent.GetComponent<zoom_script>().spriteRend.enabled = true;
             //transform.parent.GetComponent<zoom_script>().boxColl2D.enabled = true;
         }

@@ -213,6 +213,7 @@ MonoBehaviour:
   parent_open: 0
   sibling_open: 0
   orderShift: 0
+  sound: {fileID: 1561524918}
   anim_position_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
   anim_position_close: {fileID: 7400000, guid: ee8c9bd33100c434ebd8cf498432cdb1, type: 2}
   anim_scale_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
@@ -378,6 +379,7 @@ RectTransform:
   - {fileID: 535964873}
   - {fileID: 2026003484}
   - {fileID: 1819716092}
+  - {fileID: 1561524917}
   m_Father: {fileID: 1173748096}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -623,6 +625,7 @@ MonoBehaviour:
   parent_open: 0
   sibling_open: 0
   orderShift: 0
+  sound: {fileID: 0}
   anim_position_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
   anim_position_close: {fileID: 7400000, guid: ee8c9bd33100c434ebd8cf498432cdb1, type: 2}
   anim_scale_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
@@ -1072,6 +1075,7 @@ MonoBehaviour:
   parent_open: 0
   sibling_open: 0
   orderShift: 0
+  sound: {fileID: 0}
   anim_position_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
   anim_position_close: {fileID: 7400000, guid: ee8c9bd33100c434ebd8cf498432cdb1, type: 2}
   anim_scale_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
@@ -1326,6 +1330,7 @@ MonoBehaviour:
   parent_open: 0
   sibling_open: 0
   orderShift: 0
+  sound: {fileID: 0}
   anim_position_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
   anim_position_close: {fileID: 7400000, guid: ee8c9bd33100c434ebd8cf498432cdb1, type: 2}
   anim_scale_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
@@ -1646,6 +1651,7 @@ MonoBehaviour:
   parent_open: 0
   sibling_open: 0
   orderShift: 0
+  sound: {fileID: 0}
   anim_position_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
   anim_position_close: {fileID: 7400000, guid: ee8c9bd33100c434ebd8cf498432cdb1, type: 2}
   anim_scale_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
@@ -1900,6 +1906,7 @@ MonoBehaviour:
   parent_open: 0
   sibling_open: 0
   orderShift: 0
+  sound: {fileID: 0}
   anim_position_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
   anim_position_close: {fileID: 7400000, guid: ee8c9bd33100c434ebd8cf498432cdb1, type: 2}
   anim_scale_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
@@ -2563,6 +2570,134 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
+--- !u!1 &1561524916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1561524917}
+  - component: {fileID: 1561524918}
+  m_Layer: 0
+  m_Name: Sound 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1561524917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561524916}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.3839096, y: -0.5238513, z: -7.7664}
+  m_LocalScale: {x: 0.4, y: 0.71111107, z: 0.77664}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 73174012}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1561524918
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561524916}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: b8b3b5dbe4e352c46979561b816cd96e, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1748383820
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,6 +3344,7 @@ MonoBehaviour:
   parent_open: 0
   sibling_open: 0
   orderShift: 0
+  sound: {fileID: 0}
   anim_position_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
   anim_position_close: {fileID: 7400000, guid: ee8c9bd33100c434ebd8cf498432cdb1, type: 2}
   anim_scale_open: {fileID: 7400000, guid: 5f4607246416a4c4ca1377747b60e450, type: 2}
